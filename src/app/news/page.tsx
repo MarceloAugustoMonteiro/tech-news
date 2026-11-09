@@ -1,6 +1,6 @@
-import { Suspense } from 'react';
-import Link from 'next/link';
-import { getTechnologyNews } from '@/services/guardian';
+import { Suspense } from "react";
+import Link from "next/link";
+import { getTechnologyNews } from "@/services/guardian";
 
 export default function NewsPage() {
   return (
@@ -31,7 +31,7 @@ async function NewsList() {
 
           <time dateTime={article.webPublicationDate}>
             {new Date(article.webPublicationDate)
-              .toLocaleDateString('pt-BR')}
+              .toLocaleDateString("pt-BR")}
           </time>
         </article>
       ))}

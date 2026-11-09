@@ -1,5 +1,5 @@
-import 'server-only';
-import { cacheLife } from 'next/cache';
+import "server-only";
+import { cacheLife } from "next/cache";
 
 export interface Article {
   id: string;
@@ -26,7 +26,7 @@ interface GuardianResponse<T> {
 }
 
 export async function getTechnologyNews(): Promise<Article[]> {
-  'use cache';
+  "use cache";
 
   cacheLife({
     stale: 60,
@@ -37,21 +37,21 @@ export async function getTechnologyNews(): Promise<Article[]> {
   const apiKey = process.env.GUARDIAN_API_KEY;
 
   if (!apiKey) {
-    throw new Error('GUARDIAN_API_KEY is missing');
+    throw new Error("GUARDIAN_API_KEY is missing");
   }
 
-  const url = new URL('https://content.guardianapis.com/search');
+  const url = new URL("https://content.guardianapis.com/search");
 
-  url.searchParams.set('section', 'technology');
-  url.searchParams.set('show-fields', 'thumbnail');
-  url.searchParams.set('page-size', '10');
-  url.searchParams.set('order-by', 'newest');
-  url.searchParams.set('api-key', apiKey);
+  url.searchParams.set("section", "technology");
+  url.searchParams.set("show-fields", "thumbnail");
+  url.searchParams.set("page-size", "10");
+  url.searchParams.set("order-by", "newest");
+  url.searchParams.set("api-key", apiKey);
 
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error('Failed to fetch technology news');
+    throw new Error("Failed to fetch technology news");
   }
 
   const data: GuardianResponse<Article> = await response.json();
@@ -62,7 +62,7 @@ export async function getTechnologyNews(): Promise<Article[]> {
 export async function getArticleById(
   id: string
 ): Promise<ArticleDetails | null> {
-  'use cache';
+  "use cache";
 
   cacheLife({
     stale: 60,
@@ -73,15 +73,15 @@ export async function getArticleById(
   const apiKey = process.env.GUARDIAN_API_KEY;
 
   if (!apiKey) {
-    throw new Error('GUARDIAN_API_KEY is missing');
+    throw new Error("GUARDIAN_API_KEY is missing");
   }
 
   const url = new URL(
     `https://content.guardianapis.com/${id}`
   );
 
-  url.searchParams.set('show-fields', 'body,thumbnail');
-  url.searchParams.set('api-key', apiKey);
+  url.searchParams.set("show-fields", "body,thumbnail");
+  url.searchParams.set("api-key", apiKey);
 
   const response = await fetch(url);
 
@@ -90,7 +90,7 @@ export async function getArticleById(
   }
 
   if (!response.ok) {
-    throw new Error('Failed to fetch article');
+    throw new Error("Failed to fetch article");
   }
 
   const data: GuardianResponse<ArticleDetails> = await response.json();

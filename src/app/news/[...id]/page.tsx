@@ -1,6 +1,6 @@
-import { Suspense } from 'react';
-import { getArticleById } from '@/services/guardian';
-import { notFound } from 'next/navigation';
+import { Suspense } from "react";
+import { getArticleById } from "@/services/guardian";
+import { notFound } from "next/navigation";
 
 interface NewsDetailsProps {
   params: Promise<{ id: string[] }>;
@@ -19,7 +19,7 @@ export default function NewsDetails({ params }: NewsDetailsProps) {
 async function ArticleContent({ params }: NewsDetailsProps) {
   const { id } = await params;
 
-  const article = await getArticleById(id.join('/'));
+  const article = await getArticleById(id.join("/"));
 
   if (!article) {
     notFound();
@@ -32,7 +32,7 @@ async function ArticleContent({ params }: NewsDetailsProps) {
       </h1>
 
       <time dateTime={article.webPublicationDate}>
-        {new Date(article.webPublicationDate).toLocaleDateString('pt-BR')}
+        {new Date(article.webPublicationDate).toLocaleDateString("pt-BR")}
       </time>
 
       <a
