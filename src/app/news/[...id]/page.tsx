@@ -1,9 +1,36 @@
 import { Suspense } from "react";
 import { getArticleById } from "@/services/guardian";
 import { notFound } from "next/navigation";
-
+import type { Metadata } from "next";
 interface NewsDetailsProps {
   params: Promise<{ id: string[] }>;
+}
+
+export async function generateMetadata({
+  params,
+}: NewsDetailsProps): Promise<Metadata> {
+  const { id } = await params;
+
+  const article = await getArticleById(id.join("/"));
+
+  if (!article) {
+    return {
+      title: "Article not found | Tech News",
+    };
+  }
+
+  return {
+    title: `${article.webTitle} | Tech News`,
+    description: `Read ${article.webTitle} on Tech News.`,
+    openGraph: {
+      title: article.webTitle,
+      description: `Read ${article.webTitle} on Tech News.`,
+      type: "article",
+      images: article.fields?.thumbnail
+        ? [article.fields.thumbnail]
+        : [],
+    },
+  };
 }
 
 export default function NewsDetails({ params }: NewsDetailsProps) {
