@@ -1,6 +1,12 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { getTechnologyNews } from "@/services/guardian";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Technology News | Tech News",
+  description: "Latest technology news from around the world.",
+};
 
 export default function NewsPage() {
   return (
