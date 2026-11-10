@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media.guim.co.uk",
+      },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {
