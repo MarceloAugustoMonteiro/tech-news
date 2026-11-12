@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import NewsDate from "@/components/NewsDate";
+import NewsDate from "@/components/news/NewsDate";
 interface NewsDetailsProps {
   params: Promise<{ id: string[] }>;
 }
@@ -39,7 +39,7 @@ export async function generateMetadata({
 export default function NewsDetails({ params }: NewsDetailsProps) {
   return (
     <main id="news-content" className="news-container news-detail-main">
-      <Link href="/news" className="news-back-link"><span aria-hidden="true">←</span> All stories</Link>
+      <Link href="/" className="news-back-link"><span aria-hidden="true">←</span> All stories</Link>
       <Suspense fallback={<div className="news-loading" role="status">Loading your story…</div>}>
         <ArticleContent params={params} />
       </Suspense>
