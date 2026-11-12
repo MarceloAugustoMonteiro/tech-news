@@ -22,7 +22,7 @@ export default function NewsCard({
 
   return (
     <article className={`news-card${featured ? " news-card-featured" : ""}`}>
-      <Link href={`/news/${article.id}`} className="news-card-link">
+      <Link href={`/news/${article.id}`} prefetch={false} className="news-card-link">
         <div className="news-card-media">
           {thumbnail ? (
             <Image
