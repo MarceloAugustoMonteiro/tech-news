@@ -15,6 +15,10 @@ export interface ArticleDetails extends Article {
   fields?: {
     thumbnail?: string;
     body?: string;
+    byline?: string;
+    standfirst?: string;
+    lastModified?: string;
+    publication?: string;
   };
 }
 
@@ -30,8 +34,8 @@ export async function getTechnologyNews(): Promise<Article[]> {
 
   cacheLife({
     stale: 60,
-    revalidate: 300,
-    expire: 3600,
+    revalidate: 1800,
+    expire: 7200,
   });
 
   const apiKey = process.env.GUARDIAN_API_KEY;
@@ -66,8 +70,8 @@ export async function getArticleById(
 
   cacheLife({
     stale: 60,
-    revalidate: 300,
-    expire: 3600,
+    revalidate: 3600,
+    expire: 7200,
   });
 
   const apiKey = process.env.GUARDIAN_API_KEY;
@@ -80,7 +84,10 @@ export async function getArticleById(
     `https://content.guardianapis.com/${id}`
   );
 
-  url.searchParams.set("show-fields", "body,thumbnail");
+  url.searchParams.set(
+    "show-fields",
+    "body,thumbnail,byline,standfirst,lastModified,publication",
+  );
   url.searchParams.set("api-key", apiKey);
 
   const response = await fetch(url);
