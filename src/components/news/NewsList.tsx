@@ -4,8 +4,6 @@ import NewsCard from "./NewsCard";
 export default async function NewsList() {
   const news = await getTechnologyNews();
 
-  console.log(news);
-
   if (news.length === 0) {
     return (
       <p className="news-loading">

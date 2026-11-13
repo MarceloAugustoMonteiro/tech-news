@@ -20,6 +20,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The news home is `src/app/(editorial)/page.tsx`; article pages are served at `/news/[...id]`. The legacy `/news` listing redirects to `/`.
 
+The editorial layout owns the shared header, footer, and styles. `components/news` contains the news list, cards, and shared date formatting. Article-specific presentation and sanitized HTML rendering live in the detail route's private `_components` folder. The route keeps metadata, parameter handling, data loading, and not-found behavior; `services/guardian.ts` owns API access and caching.
+
 ## Guardian integration
 
 This is a non-commercial study project. Configure `GUARDIAN_API_KEY` in `.env.local`; the key is read only by the server and must not be exposed through `NEXT_PUBLIC_` variables.
