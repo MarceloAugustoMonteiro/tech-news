@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ArticleView from "./_components/ArticleView";
+import ArticleSkeleton from "./_components/ArticleSkeleton";
 
 interface NewsDetailsProps {
   params: Promise<{ id: string[] }>;
@@ -38,13 +39,7 @@ export default function NewsDetails({ params }: NewsDetailsProps) {
       <Link href="/" className="news-back-link">
         <span aria-hidden="true">←</span> All stories
       </Link>
-      <Suspense
-        fallback={
-          <div className="news-loading" role="status">
-            Loading your story…
-          </div>
-        }
-      >
+      <Suspense fallback={<ArticleSkeleton />}>
         <ArticleContent params={params} />
       </Suspense>
     </main>
