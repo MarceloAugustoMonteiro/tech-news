@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ArticleDetails } from "@/services/guardian";
 import NewsDate from "@/components/news/NewsDate";
 import ArticleHtml from "./ArticleHtml";
+import InteractiveArticle from "@/components/translation/InteractiveArticle";
 
 interface ArticleViewProps {
   article: ArticleDetails;
@@ -18,9 +19,7 @@ export default function ArticleView({ article }: ArticleViewProps) {
           <span aria-hidden="true" /> Technology / The Guardian
         </p>
         <h1>{article.webTitle}</h1>
-        {fields?.standfirst && (
-          <ArticleHtml html={fields.standfirst} className="news-standfirst" />
-        )}
+        {fields?.standfirst && <ArticleHtml html={fields.standfirst} className="news-standfirst" />}
         <div className="news-detail-byline">
           <div>
             {fields?.byline ? (
@@ -54,17 +53,17 @@ export default function ArticleView({ article }: ArticleViewProps) {
             fetchPriority="high"
             className="news-detail-image"
           />
-          <figcaption>
-            Image accompanying the original story on The Guardian.
-          </figcaption>
+          <figcaption>Image accompanying the original story on The Guardian.</figcaption>
         </figure>
       )}
       {hasBody && fields?.body ? (
-        <ArticleHtml html={fields.body} className="news-article-body" />
+        <InteractiveArticle>
+          <ArticleHtml html={fields.body} className="news-article-body" />
+        </InteractiveArticle>
       ) : (
         <p className="news-article-unavailable" role="status">
-          The article text is not available here. You can read the original
-          story on The Guardian using the link below.
+          The article text is not available here. You can read the original story on The Guardian
+          using the link below.
         </p>
       )}
       <footer className="news-article-credit">

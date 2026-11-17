@@ -1,0 +1,79 @@
+.translation-hint,
+.translation-keyboard {
+  max-width: 680px;
+  margin: 24px auto 0;
+  color: var(--news-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.interactive-article .news-article-body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+.interactive-article .news-article-body p,
+.interactive-article .news-article-body li {
+  cursor: help;
+}
+.translation-keyboard summary {
+  cursor: pointer;
+}
+.translation-keyboard form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+}
+.translation-keyboard input {
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--news-line);
+  border-radius: 4px;
+  background: var(--news-surface);
+  color: var(--news-ink);
+}
+.translation-keyboard button {
+  padding: 8px 14px;
+  border: 1px solid var(--news-line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.translation-keyboard :focus-visible,
+.translation-close:focus-visible {
+  outline: 2px solid var(--news-accent);
+  outline-offset: 4px;
+}
+.translation-tooltip {
+  position: fixed;
+  z-index: 50;
+  left: 12px;
+  top: 12px;
+  width: min(280px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 18px 40px 18px 18px;
+  border: 1px solid var(--news-line);
+  border-radius: 10px;
+  background: var(--news-surface);
+  color: var(--news-ink);
+  box-shadow: 0 8px 32px #0003;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.translation-tooltip strong {
+  display: block;
+  color: var(--news-accent);
+}
+.translation-tooltip p {
+  margin-top: 6px;
+}
+.translation-close {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 36px;
+  height: 36px;
+  font-size: 24px;
+  cursor: pointer;
+}
