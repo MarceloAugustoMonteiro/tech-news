@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import NewsList from "@/components/news/NewsList";
+import NewsListSkeleton from "@/components/news/NewsListSkeleton";
 
 export const metadata: Metadata = {
   title: "Technology News | Tech News",
@@ -24,13 +25,7 @@ export default function HomePage() {
           informed.
         </p>
       </header>
-      <Suspense
-        fallback={
-          <div className="news-loading" role="status">
-            Bringing you the latest technology news…
-          </div>
-        }
-      >
+      <Suspense fallback={<NewsListSkeleton />}>
         <NewsList />
       </Suspense>
     </main>
