@@ -63,9 +63,7 @@ export async function getTechnologyNews(): Promise<Article[]> {
   return data.response.results ?? [];
 }
 
-export async function getArticleById(
-  id: string
-): Promise<ArticleDetails | null> {
+export async function getArticleById(id: string): Promise<ArticleDetails | null> {
   "use cache";
 
   cacheLife({
@@ -80,14 +78,9 @@ export async function getArticleById(
     throw new Error("GUARDIAN_API_KEY is missing");
   }
 
-  const url = new URL(
-    `https://content.guardianapis.com/${id}`
-  );
+  const url = new URL(`https://content.guardianapis.com/${id}`);
 
-  url.searchParams.set(
-    "show-fields",
-    "body,thumbnail,byline,standfirst,lastModified,publication",
-  );
+  url.searchParams.set("show-fields", "body,thumbnail,byline,standfirst,lastModified,publication");
   url.searchParams.set("api-key", apiKey);
 
   const response = await fetch(url);
