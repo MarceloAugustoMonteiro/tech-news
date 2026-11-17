@@ -34,7 +34,21 @@ List queries revalidate after 30 minutes, and article queries after one hour. Bo
 
 Cache expiration governs serving behavior, not physical deletion of deployment artifacts, logs or backups. Review storage retention and cache invalidation when deploying, and do not archive API responses in the repository. See the [Open Platform terms](https://www.theguardian.com/open-platform/terms-and-conditions) before changing the project's usage.
 
-## Validation
+## Interactive word translation
+
+On article pages, click or tap an English word to translate it to Brazilian Portuguese. The server-rendered, sanitized HTML is passed as children to a small client boundary; no word wrappers or DOM rewrites are introduced. Click detection hit-tests text ranges inside the clicked element, without depending on browser selection/caret APIs. Native text selection is disabled only in the article body to prevent accidental phrase selection. A collapsible single-word form provides keyboard access. Links and media controls retain their native behavior.
+
+Translation starts only after user interaction. The non-modal result dialog supports Escape and outside-click dismissal, returns focus to the reading area when dismissed from inside the dialog, and is dismissed on scrolling/resizing to avoid stale coordinates. Only the selected word is sent, not the article or its context. Cancelling or switching words aborts the previous client request and prevents late responses from replacing the current result.
+
+`POST /api/translate` accepts `{ "word": "beautiful" }`. It fixes the language pair to `en|pt-BR`, validates English words/contractions up to 60 characters, caps request bodies at 1 KiB, uses an eight-second provider timeout and returns controlled 400/403/429/503 errors. No API key is needed. Responses are rendered as text, never as HTML.
+
+The page caches successful translations for its lifetime; the server caches them with Cache Components (24-hour revalidation, 48-hour blocking expiration). Failed results are not inserted into the client cache. The anonymous [MyMemory plan](https://mymemory.translated.net/doc/usagelimits.php) is limited to 5,000 characters/day; isolated words can have contextually inaccurate translations.
+
+The endpoint also limits requests to 20/minute per forwarded client IP (or a shared bucket if unavailable), plus 120/minute per process. This bounded in-memory protection resets on restart and is not a distributed quota. Hosting must overwrite `X-Forwarded-For` with a trusted value; for a public multi-instance deployment, use a shared limiter or gateway before relying on these limits. Cross-origin browser requests are rejected.
+
+## Validation commands
+
+Formatting uses Prettier with two-space indentation, double quotes, semicolons, and a target line width of 100 characters. Run `npm run format` to format source files and `npm run format:check` to verify them without writing. Generated files, public assets, lockfiles and agent instructions are excluded.
 
 ```bash
 npm test

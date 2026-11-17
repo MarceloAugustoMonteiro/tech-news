@@ -8,9 +8,6 @@ interface ArticleHtmlProps {
 
 export default function ArticleHtml({ html, className }: ArticleHtmlProps) {
   return (
-    <div
-      className={className}
-      dangerouslySetInnerHTML={{ __html: sanitizeGuardianHtml(html) }}
-    />
+    <div className={className} dangerouslySetInnerHTML={{ __html: sanitizeGuardianHtml(html) }} />
   );
 }

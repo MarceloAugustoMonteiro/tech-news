@@ -3,13 +3,7 @@ import sanitizeHtml from "sanitize-html";
 /** Keep editorial markup without allowing executable third-party HTML. */
 export function sanitizeGuardianHtml(html: string): string {
   return sanitizeHtml(html, {
-    allowedTags: [
-      ...sanitizeHtml.defaults.allowedTags,
-      "img",
-      "video",
-      "audio",
-      "source",
-    ],
+    allowedTags: [...sanitizeHtml.defaults.allowedTags, "img", "video", "audio", "source"],
     allowedAttributes: {
       "*": ["id", "lang"],
       a: ["href", "title"],

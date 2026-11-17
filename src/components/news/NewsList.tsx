@@ -5,11 +5,7 @@ export default async function NewsList() {
   const news = await getTechnologyNews();
 
   if (news.length === 0) {
-    return (
-      <p className="news-loading">
-        No stories available right now. Please check back soon.
-      </p>
-    );
+    return <p className="news-loading">No stories available right now. Please check back soon.</p>;
   }
 
   const firstImageIndex = news.findIndex((article) => article.fields?.thumbnail);

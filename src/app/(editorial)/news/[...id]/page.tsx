@@ -9,9 +9,7 @@ interface NewsDetailsProps {
   params: Promise<{ id: string[] }>;
 }
 
-export async function generateMetadata({
-  params,
-}: NewsDetailsProps): Promise<Metadata> {
+export async function generateMetadata({ params }: NewsDetailsProps): Promise<Metadata> {
   const { id } = await params;
 
   const article = await getArticleById(id.join("/"));
@@ -29,9 +27,7 @@ export async function generateMetadata({
       title: article.webTitle,
       description: `Read ${article.webTitle} on Tech News.`,
       type: "article",
-      images: article.fields?.thumbnail
-        ? [article.fields.thumbnail]
-        : [],
+      images: article.fields?.thumbnail ? [article.fields.thumbnail] : [],
     },
   };
 }
@@ -39,8 +35,16 @@ export async function generateMetadata({
 export default function NewsDetails({ params }: NewsDetailsProps) {
   return (
     <main id="news-content" className="news-container news-detail-main">
-      <Link href="/" className="news-back-link"><span aria-hidden="true">←</span> All stories</Link>
-      <Suspense fallback={<div className="news-loading" role="status">Loading your story…</div>}>
+      <Link href="/" className="news-back-link">
+        <span aria-hidden="true">←</span> All stories
+      </Link>
+      <Suspense
+        fallback={
+          <div className="news-loading" role="status">
+            Loading your story…
+          </div>
+        }
+      >
         <ArticleContent params={params} />
       </Suspense>
     </main>

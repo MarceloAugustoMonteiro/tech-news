@@ -3,7 +3,8 @@ import { test } from "node:test";
 import { sanitizeGuardianHtml } from "../src/lib/guardian-html";
 
 test("preserves article paragraphs, links, figures, credits and corrections", () => {
-  const html = '<h2>Background</h2><p>First <strong>paragraph</strong>.</p><blockquote>A quotation.</blockquote><p><a href="https://www.theguardian.com/story">Related reporting</a></p><figure><img src="https://media.guim.co.uk/photo.jpg" width="500" height="400" alt="A photo"><figcaption>Photograph: Author</figcaption></figure><p id="correction">Correction and copyright notice.</p>';
+  const html =
+    '<h2>Background</h2><p>First <strong>paragraph</strong>.</p><blockquote>A quotation.</blockquote><p><a href="https://www.theguardian.com/story">Related reporting</a></p><figure><img src="https://media.guim.co.uk/photo.jpg" width="500" height="400" alt="A photo"><figcaption>Photograph: Author</figcaption></figure><p id="correction">Correction and copyright notice.</p>';
   const result = sanitizeGuardianHtml(html);
 
   assert.match(result, /<h2>Background<\/h2>/);
@@ -16,7 +17,8 @@ test("preserves article paragraphs, links, figures, credits and corrections", ()
 });
 
 test("removes scripts, event handlers, styles and unsafe embeds", () => {
-  const html = '<script>alert(1)</script><style>body{display:none}</style><p onclick="alert(1)">Keep this</p><img src="https://example.com/photo.jpg" onerror="alert(1)"><iframe src="https://evil.example"></iframe><svg onload="alert(1)"></svg>';
+  const html =
+    '<script>alert(1)</script><style>body{display:none}</style><p onclick="alert(1)">Keep this</p><img src="https://example.com/photo.jpg" onerror="alert(1)"><iframe src="https://evil.example"></iframe><svg onload="alert(1)"></svg>';
   const result = sanitizeGuardianHtml(html);
 
   assert.match(result, /<p>Keep this<\/p>/);
@@ -24,7 +26,8 @@ test("removes scripts, event handlers, styles and unsafe embeds", () => {
 });
 
 test("blocks dangerous and obfuscated URL schemes", () => {
-  const html = '<a href="javascript:alert(1)">A</a><a href="java&#x73;cript:alert(1)">B</a><img src="data:image/svg+xml,evil"><a href="//evil.example">C</a>';
+  const html =
+    '<a href="javascript:alert(1)">A</a><a href="java&#x73;cript:alert(1)">B</a><img src="data:image/svg+xml,evil"><a href="//evil.example">C</a>';
   const result = sanitizeGuardianHtml(html);
 
   assert.doesNotMatch(result, /href=|src=/);

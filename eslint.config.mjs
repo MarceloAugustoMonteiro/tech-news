@@ -9,6 +9,7 @@ const eslintConfig = defineConfig([
     rules: {
       quotes: ["error", "double", { avoidEscape: true }],
       "jsx-quotes": ["error", "prefer-double"],
+      curly: ["error", "all"],
     },
   },
   // Override default ignores of eslint-config-next.
