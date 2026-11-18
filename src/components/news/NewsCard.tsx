@@ -1,3 +1,4 @@
+import ArrowUpRightIcon from "@/components/icons/ArrowUpRightIcon";
 import styles from "./NewsCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,7 +54,7 @@ export default function NewsCard({
           <div className={styles.bottom}>
             <span>The Guardian</span>
             <span className={styles.readLink}>
-              Read story <span aria-hidden="true">↗</span>
+              Read story <ArrowUpRightIcon />
             </span>
           </div>
         </div>
