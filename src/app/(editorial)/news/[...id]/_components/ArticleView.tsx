@@ -1,3 +1,4 @@
+import ArrowUpRightIcon from "@/components/icons/ArrowUpRightIcon";
 import styles from "./ArticleView.module.css";
 import Image from "next/image";
 import type { ArticleDetails } from "@/services/guardian";
@@ -87,7 +88,7 @@ export default function ArticleView({ article }: ArticleViewProps) {
           rel="noopener noreferrer"
           className={styles.originalLink}
         >
-          View the original article <span aria-hidden="true">↗</span>
+          View the original article <ArrowUpRightIcon />
         </a>
       </footer>
     </article>

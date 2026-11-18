@@ -1,3 +1,4 @@
+import ArrowUpRightIcon from "@/components/icons/ArrowUpRightIcon";
 import Link from "next/link";
 import "./editorial.css";
 
@@ -19,7 +20,7 @@ export default function EditorialLayout({ children }: { children: React.ReactNod
           </Link>
           <nav aria-label="News navigation">
             <Link href="/" className="news-nav-link">
-              Technology <span aria-hidden="true">↗</span>
+              Technology <ArrowUpRightIcon />
             </Link>
           </nav>
           <span className="news-header-note">A closer look at what’s next.</span>
@@ -32,7 +33,7 @@ export default function EditorialLayout({ children }: { children: React.ReactNod
         </Link>
         <p>Technology, in perspective.</p>
         <a href="https://www.theguardian.com/technology" target="_blank" rel="noopener noreferrer">
-          News from The Guardian <span aria-hidden="true">↗</span>
+          News from The Guardian <ArrowUpRightIcon />
         </a>
       </footer>
     </div>

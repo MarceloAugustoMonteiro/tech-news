@@ -97,10 +97,6 @@
   padding-block: 16px;
 }
 
-.news-nav-link span {
-  color: var(--news-accent);
-}
-
 .news-header-note {
   margin-left: auto;
   font-size: 12px;
