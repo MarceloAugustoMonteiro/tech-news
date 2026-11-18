@@ -1,5 +1,5 @@
 import Link from "next/link";
-import "./news.css";
+import "./editorial.css";
 
 export default function EditorialLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "./translation.module.css";
+
 import { useEffect, useLayoutEffect, useRef } from "react";
 
 export interface TranslationState {
@@ -44,17 +46,13 @@ export default function TranslationTooltip({
     <div
       ref={ref}
       tabIndex={-1}
-      className="translation-tooltip"
+      className={styles.tooltip}
+      data-translation-tooltip=""
       role="dialog"
       aria-label={`Tradução de ${state.word}`}
       lang="pt-BR"
     >
-      <button
-        type="button"
-        className="translation-close"
-        onClick={onClose}
-        aria-label="Fechar tradução"
-      >
+      <button type="button" className={styles.close} onClick={onClose} aria-label="Fechar tradução">
         ×
       </button>
       <strong lang="en">{state.word}</strong>

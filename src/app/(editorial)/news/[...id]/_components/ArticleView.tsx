@@ -1,3 +1,4 @@
+import styles from "./ArticleView.module.css";
 import Image from "next/image";
 import type { ArticleDetails } from "@/services/guardian";
 import NewsDate from "@/components/news/NewsDate";
@@ -13,36 +14,38 @@ export default function ArticleView({ article }: ArticleViewProps) {
   const hasBody = Boolean(fields?.body?.trim());
 
   return (
-    <article className="news-detail">
-      <header className="news-detail-header">
+    <article className={styles.article}>
+      <header className={styles.header}>
         <p className="news-eyebrow">
           <span aria-hidden="true" /> Technology / The Guardian
         </p>
         <h1>{article.webTitle}</h1>
-        {fields?.standfirst && <ArticleHtml html={fields.standfirst} className="news-standfirst" />}
-        <div className="news-detail-byline">
+        {fields?.standfirst && (
+          <ArticleHtml html={fields.standfirst} className={styles.standfirst} />
+        )}
+        <div className={styles.byline}>
           <div>
             {fields?.byline ? (
-              <ArticleHtml html={fields.byline} className="news-source-name" />
+              <ArticleHtml html={fields.byline} className={styles.sourceName} />
             ) : (
-              <span className="news-source-name">The Guardian</span>
+              <span className={styles.sourceName}>The Guardian</span>
             )}
-            <span className="news-published">
+            <span className={styles.published}>
               Published <NewsDate value={article.webPublicationDate} />
             </span>
             {fields?.lastModified &&
               new Date(fields.lastModified).getTime() >
                 new Date(article.webPublicationDate).getTime() && (
-                <span className="news-published">
+                <span className={styles.published}>
                   Updated <NewsDate value={fields.lastModified} />
                 </span>
               )}
           </div>
-          <span className="news-detail-category">Technology</span>
+          <span className={styles.category}>Technology</span>
         </div>
       </header>
       {fields?.thumbnail && (
-        <figure className="news-detail-figure">
+        <figure className={styles.figure}>
           <Image
             src={fields.thumbnail}
             alt={article.webTitle}
@@ -51,30 +54,30 @@ export default function ArticleView({ article }: ArticleViewProps) {
             sizes="(max-width: 539px) calc(100vw - 40px), 500px"
             loading="eager"
             fetchPriority="high"
-            className="news-detail-image"
+            className={styles.image}
           />
           <figcaption>Image accompanying the original story on The Guardian.</figcaption>
         </figure>
       )}
       {hasBody && fields?.body ? (
         <InteractiveArticle>
-          <ArticleHtml html={fields.body} className="news-article-body" />
+          <ArticleHtml html={fields.body} className={styles.body} />
         </InteractiveArticle>
       ) : (
-        <p className="news-article-unavailable" role="status">
+        <p className={styles.unavailable} role="status">
           The article text is not available here. You can read the original story on The Guardian
           using the link below.
         </p>
       )}
-      <footer className="news-article-credit">
+      <footer className={styles.credit}>
         <a
-          className="news-guardian-attribution"
+          className={styles.attribution}
           href="https://www.theguardian.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="news-guardian-label">Powered by</span>
-          <span className="news-guardian-name">The Guardian</span>
+          <span className={styles.attributionLabel}>Powered by</span>
+          <span className={styles.attributionName}>The Guardian</span>
         </a>
         <p>Original reporting by The Guardian.</p>
         <p>© Guardian News &amp; Media Limited. All rights reserved.</p>
@@ -82,7 +85,7 @@ export default function ArticleView({ article }: ArticleViewProps) {
           href={article.webUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="news-original-link"
+          className={styles.originalLink}
         >
           View the original article <span aria-hidden="true">↗</span>
         </a>
