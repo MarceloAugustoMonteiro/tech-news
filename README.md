@@ -20,7 +20,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The news home is `src/app/(editorial)/page.tsx`; article pages are served at `/news/[...id]`. The legacy `/news` listing redirects to `/`.
 
-The editorial layout owns the shared header, footer, and styles. `components/news` contains the news list, cards, and shared date formatting. Article-specific presentation and sanitized HTML rendering live in the detail route's private `_components` folder. The route keeps metadata, parameter handling, data loading, and not-found behavior; `services/guardian.ts` owns API access and caching.
+The editorial layout owns the shared header, footer, and theme. `components/news` contains the news list, cards, and shared date formatting. Article-specific presentation and sanitized HTML rendering live in the detail route's private `_components` folder. The route keeps metadata, parameter handling, data loading, and not-found behavior; `services/guardian.ts` owns API access and caching.
+
+`globals.css` contains application-wide base styles. The editorial layout imports `editorial.css` for theme variables, page structure and shared skeleton utilities. Cards and their skeleton share `NewsCard.module.css`; article presentation and its skeleton share the route-local `ArticleView.module.css`; translation components share `translation.module.css`. Styles for sanitized article HTML use descendants of a local body class, without modifying the supplied HTML. Translation owns its content wrapper and does not depend on article CSS class names. Keep one empty line between sibling CSS rules, including rules inside media queries; Prettier preserves this spacing.
+
+The Turbopack Tailwind loader is restricted to `globals.css`. Do not apply an `as: "*.css"` rule to `.module.css` files: they must retain Next.js's native CSS Modules processing and local class exports.
 
 ## Guardian integration
 

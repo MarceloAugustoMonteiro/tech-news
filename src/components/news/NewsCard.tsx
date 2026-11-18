@@ -1,3 +1,4 @@
+import styles from "./NewsCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/services/guardian";
@@ -21,9 +22,9 @@ export default function NewsCard({
   const thumbnail = article.fields?.thumbnail;
 
   return (
-    <article className={`news-card${featured ? " news-card-featured" : ""}`}>
-      <Link href={`/news/${article.id}`} prefetch={false} className="news-card-link">
-        <div className="news-card-media">
+    <article className={`${styles.card}${featured ? ` ${styles.featured}` : ""}`}>
+      <Link href={`/news/${article.id}`} prefetch={false} className={styles.link}>
+        <div className={styles.media}>
           {thumbnail ? (
             <Image
               src={thumbnail}
@@ -33,25 +34,25 @@ export default function NewsCard({
               sizes={featured ? FEATURED_IMAGE_SIZES : CARD_IMAGE_SIZES}
               loading={prioritizeImage ? "eager" : "lazy"}
               fetchPriority={prioritizeImage ? "high" : "auto"}
-              className="news-card-image"
+              className={styles.image}
             />
           ) : (
-            <span className="news-image-placeholder" aria-hidden="true">
+            <span className={styles.imagePlaceholder} aria-hidden="true">
               technews.
             </span>
           )}
-          {featured && <span className="news-featured-label">In focus</span>}
+          {featured && <span className={styles.featuredLabel}>In focus</span>}
         </div>
-        <div className="news-card-content">
-          <div className="news-card-meta">
+        <div className={styles.content}>
+          <div className={styles.meta}>
             <span>Technology</span>
             <span aria-hidden="true">/</span>
             <NewsDate value={article.webPublicationDate} />
           </div>
           <h2>{article.webTitle}</h2>
-          <div className="news-card-bottom">
+          <div className={styles.bottom}>
             <span>The Guardian</span>
-            <span className="news-read-link">
+            <span className={styles.readLink}>
               Read story <span aria-hidden="true">↗</span>
             </span>
           </div>

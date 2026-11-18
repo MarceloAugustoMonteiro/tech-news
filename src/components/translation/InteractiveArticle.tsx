@@ -1,9 +1,10 @@
 "use client";
 
+import styles from "./translation.module.css";
+
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { normalizeWord, wordAtOffset } from "@/lib/translation-word";
 import TranslationTooltip, { type TranslationState } from "./TranslationTooltip";
-import "./translation.css";
 
 const INTERACTIVE =
   "a,button,input,textarea,select,video,audio,[role=button],[contenteditable=true]";
@@ -21,7 +22,7 @@ export default function InteractiveArticle({ children }: { children: ReactNode }
     controller.current?.abort();
     activeWord.current = null;
 
-    if (document.activeElement?.closest(".translation-tooltip")) {
+    if (document.activeElement?.closest("[data-translation-tooltip]")) {
       root.current?.focus({ preventScroll: true });
     }
 
@@ -30,7 +31,10 @@ export default function InteractiveArticle({ children }: { children: ReactNode }
 
   useEffect(() => {
     const dismiss = (event: PointerEvent) => {
-      if (!(event.target instanceof Element) || !event.target.closest(".translation-tooltip")) {
+      if (
+        !(event.target instanceof Element) ||
+        !event.target.closest("[data-translation-tooltip]")
+      ) {
         close();
       }
     };
@@ -150,14 +154,18 @@ export default function InteractiveArticle({ children }: { children: ReactNode }
   }
 
   return (
-    <div className="interactive-article">
-      <p className="translation-hint">
-        Click or tap an English word to see its Portuguese translation.
-      </p>
-      <div ref={root} tabIndex={-1} aria-label="Article with word translation" onClick={fromPoint}>
+    <div>
+      <p className={styles.hint}>Click or tap an English word to see its Portuguese translation.</p>
+      <div
+        className={styles.content}
+        ref={root}
+        tabIndex={-1}
+        aria-label="Article with word translation"
+        onClick={fromPoint}
+      >
         {children}
       </div>
-      <details className="translation-keyboard">
+      <details className={styles.keyboard}>
         <summary>Translate a word using the keyboard</summary>
         <form
           onSubmit={(event) => {
