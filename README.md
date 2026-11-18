@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Node version: v20.19.1
+Node.js: 22 LTS (see `.nvmrc`). Run `nvm install` and `nvm use` to select the project version.
 
 First, run the development server:
 
@@ -72,6 +72,16 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on pull requests targeting `main`, pushes to `main`, and manual runs from the Actions tab. The `Lint and tests` job installs dependencies with `npm ci` and runs ESLint and the test suite. After it passes, `Production build` runs `npm run build`, which also checks TypeScript. Both jobs use the Node.js version in `.nvmrc` and cache npm downloads using the lockfile.
+
+Before enabling builds, add a repository Actions secret named `GUARDIAN_API_KEY` under **Settings → Secrets and variables → Actions → New repository secret**. Use your Guardian developer key; do not commit `.env.local`. The home is prerendered during the build, so this check requires Guardian access and can fail if the API is unavailable or its quota is exhausted. Font downloads also require network access.
+
+Fork and Dependabot pull requests run lint and tests only because repository secrets are unavailable to them. To validate their production build, review the changes and run them from a trusted repository branch. The workflow uses read-only repository permissions and does not deploy or upload build artifacts.
+
+Publishing this workflow enables CI independently of hosting. Deployment can be added after connecting Vercel; configure the same Node.js version and `GUARDIAN_API_KEY` there. If checks must block merging, configure a branch ruleset for `main` requiring these jobs; merely adding the workflow does not enforce that rule. Vercel's Git integration can generate preview and production deployments, but CI success does not automatically gate those deployments without additional configuration.
 
 ## Deploy on Vercel
 
